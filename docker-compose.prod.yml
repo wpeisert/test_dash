@@ -1,0 +1,7 @@
+version: '3.4'
+
+services:
+  dash:
+    image: wpeisert/test_dash
+    ports:
+      - "8050:8050"

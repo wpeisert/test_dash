@@ -1,0 +1,17 @@
+jobs:
+  include:
+  - stage: build
+    name: Docker images build
+    before_script:
+    - echo "${DOCKER_PASS}" | docker login -u "${DOCKER_LOGIN}" --password-stdin
+    script:
+    - sh ./docker_build.sh
+  - stage: deploy
+    name: Deploy images and restart
+    before_script:
+    - openssl aes-256-cbc -K $encrypted_dc1c72a86108_key -iv $encrypted_dc1c72a86108_iv
+      -in deploy_rsa.enc -out deploy_rsa -d
+    - chmod 600 deploy_rsa
+    script:
+    - ssh -i deploy_rsa -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null "${CONN}"
+      'cd test_dash && git pull && sh ./docker_restart_prod.sh'

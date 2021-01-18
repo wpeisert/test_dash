@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  dash:
+    image: wpeisert/dash
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./app/:/app/:ro
+    command: "python /app/app.py"
