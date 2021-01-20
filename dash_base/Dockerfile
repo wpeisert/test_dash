@@ -5,7 +5,7 @@ RUN apt upgrade -y
 
 RUN apt install -y nano vim
 
-RUN pip install dash plotly pandas
+RUN pip install dash plotly pandas dash_bootstrap_components
 
 RUN mkdir /app
 
